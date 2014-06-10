@@ -13,7 +13,7 @@ class SubClass extends SuperClass
      */
      
     //declare local variable
-    localVar = 5
+    classVar = 5
     
     @OnCreate
     	//function call
@@ -29,9 +29,10 @@ class SubClass extends SuperClass
     	//call it
     	[self nestedMethod]
     	
-    	@localVar = 10
-    	b = 10 //a function local variable
-    	@localVar = 5 + b
+    	local localVar = 10
+    	b = 10 
+    	self.classVar = 5 + b
+    	
     end
 
     //function with parameters
