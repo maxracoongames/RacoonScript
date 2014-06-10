@@ -80,7 +80,7 @@ SubClass.prototype.OnCreate = function(name){
 	self.classVar = 5 + b;
 };
 
-//function with parameters
+
 SubClass.prototype.OnUpdate = function(delta, extra){
     var self = this;
     SuperClass.prototype.OnUpdate.call(self, delta, extra);
