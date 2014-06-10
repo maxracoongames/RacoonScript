@@ -16,17 +16,17 @@ class SubClass extends SuperClass
 @OnCreate is
 
 	//function call
-	[OnUpdate with Delta is 1, Extra is null]
+	[self OnUpdate with Delta is 1, Extra is null]
 	
 	//function call as function call parameters
-	[OnUpdate with Delta is [GetDeltaTime], Extra is [OnUpdate with Delta is [GetDeltaTime], Extra is null]]
+	[self OnUpdate with Delta is [self GetDeltaTime], Extra is [self OnUpdate with Delta is [self GetDeltaTime], Extra is null]]
 	
 	//create a nested function
 	@nestedMethod is
 	
 	@end
 	//call it
-	[nestedMethod]
+	[self nestedMethod]
 	
 	local a = 10
 	b = 10
@@ -41,6 +41,10 @@ class SubClass extends SuperClass
 @GetDeltaTime is
     return 1
 @end
+
+static @StaticFunction is
+
+@end
 ```
 
 Javascript result
@@ -49,9 +53,9 @@ Javascript result
 RacoonScript.Extends(SubClass, SuperClass)
 function SubClass (){
     /*generated code*/
-    var thisObject = this;
-    var thisClass = SubClass;
-    var superClass = SuperClass;
+    this.self = this;
+    this.thisClass = SubClass;
+    this.superClass = SuperClass;
     /*end*/
     //single line comment
     
@@ -60,33 +64,36 @@ function SubClass (){
      */
      
     //function with no parameter
-    this.OnCreate = function(){
-    
-    	//function call
-    	[OnUpdate with Delta is 1, Extra is null]
+    this.OnCreate = 
+
+    //function with parameters
+    this.OnUpdate (delta, extra){
     	
-    	//function call as function call parameters
-    	[OnUpdate with Delta is [GetDeltaTime], Extra is [OnUpdate with Delta is [GetDeltaTime], Extra is null]]
-    	
-    	//create a nested function
-    	@nestedMethod is
-    	
-    	@end
-    	//call it
-    	[nestedMethod]
-    	
-    	local a = 10
-    	b = 10
-    	a = 5 + b
     }
 
-//function with parameters
-@OnUpdate with Delta as delta, Extra as extra is
-	
-@end
+    this.GetDeltaTime = function(){
+        return 1;
+    }
+    static @StaticFunction is
 
-@GetDeltaTime is
-    return 1
-@end
+    @end
 }
+SubClass.prototype.OnCreate = function(){
+    
+ 	//function call
+ 	self.OnUpdate(1, null);
+ 	//function call as function call parameters
+ 	self.OnUpdate(self.GetDeltaTime(), self.OnUpdate(self.GetDeltaTime(), null));
+	
+	//create a nested function
+	var NestedMethod = function(){
+	
+	};
+	//call it
+	NestedMethod()
+	
+	var a = 10;
+	this.b = 10;
+	a = 5 + this.b;
+};
 ```
