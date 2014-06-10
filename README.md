@@ -13,8 +13,10 @@ class SubClass extends SuperClass
  */
  
 //function with no parameter
-@OnCreate is
+@localVariable is 5
 
+@OnCreate is
+begin
 	//function call
 	[self OnUpdate with Delta is 1, Extra is null]
 	
@@ -31,20 +33,23 @@ class SubClass extends SuperClass
 	local a = 10
 	b = 10
 	a = 5 + b
-@end
+end
 
 //function with parameters
 @OnUpdate with Delta as delta, Extra as extra is
-	
-@end
+begin
+
+end
 
 @GetDeltaTime is
+begin
     return 1
-@end
+end
 
 static @StaticFunction is
+begin
 
-@end
+end
 ```
 
 Javascript result
