@@ -37,8 +37,7 @@ class SubClass extends SuperClass
 
     //function with parameters
     @OnUpdate with Delta as delta, Extra as extra
-    
-    
+        [super.OnUpdate with Delta is delta, Extra is extra]
     end
 
     @GetDeltaTime
@@ -55,7 +54,6 @@ Javascript Result:
 ```js
 RacoonScript.Extends(SubClass, SuperClass);
 function SubClass(name){
-    var self = this;
     this.OnCreate(name);
     
     //line:XX classVar = 5 
@@ -63,6 +61,7 @@ function SubClass(name){
 }
 //line:XX @OnCreate with Name as name
 SubClass.prototype.OnCreate = function(name){
+    var self = this;
     //line:XX [self.OnUpdate with Delta is 1, Extra is null]
 	self.OnUpdate (1, null);
 	//line:XX [self.OnUpdate with Delta is [self.GetDeltaTime], Extra is [self.OnUpdate with Delta is [self.GetDeltaTime], Extra is null]]
@@ -83,10 +82,12 @@ SubClass.prototype.OnCreate = function(name){
 
 //function with parameters
 SubClass.prototype.OnUpdate = function(delta, extra){
-
+    var self = this;
+    SuperClass.prototype.OnUpdate.call(self, delta, extra);
 };
 
 SubClass.prototype.GetDeltaTime = function(){
+    var self = this;
     return 1;
 };
 
