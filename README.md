@@ -1,5 +1,8 @@
 RacoonScript
 ============
+
+RacoonScript Example:
+---------------------
 ```js
 class SubClass extends SuperClass
 
@@ -25,7 +28,9 @@ class SubClass extends SuperClass
 	//call it
 	[nestedMethod]
 	
-	
+	local a = 10
+	b = 10
+	a = 5 + b
 @end
 
 //function with parameters
